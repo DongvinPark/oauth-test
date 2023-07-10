@@ -28,6 +28,13 @@ public class OAuthAttributes {
   public static OAuthAttributes of(
       String registrationId, String userNameAttributeName, Map<String, Object> attributes
   ){
+    System.out.println("오오스어트리뷰트 내 static of 메서드 호출!!");
+    System.out.println("registrationId = " + registrationId);
+    System.out.println("userNameAttributeName = " + userNameAttributeName);
+    System.out.println("네임 : " + attributes.get("name"));
+    System.out.println("이메일 : " + attributes.get("email"));
+    System.out.println("픽처 : " + attributes.get("picture"));
+
     return OAuthAttributes.builder()
         .registrationId(registrationId)
         .name((String) attributes.get("name"))
