@@ -3,7 +3,7 @@ package com.example.oauthtest.config;
 //import com.example.oauthtest.jwt.JwtAuthenticationFilter;
 //import com.example.oauthtest.oauth.CustomLoginSuccessHandler;
 //import com.example.oauthtest.oauth.CustomLoginSuccessHandler;
-import com.example.oauthtest.jwt.JwtAuthenticationFilter;
+//import com.example.oauthtest.jwt.JwtAuthenticationFilter;
 import com.example.oauthtest.oauth.CustomLoginSuccessHandler;
 import com.example.oauthtest.oauth.CustomOAuth2UserService;
 import com.example.oauthtest.oauth.CustomOIDCUserService;
@@ -24,7 +24,7 @@ import org.springframework.web.filter.CorsFilter;
 @EnableWebSecurity
 public class SecurityConfig {
 
-  private final JwtAuthenticationFilter jwtAuthenticationFilter;
+  //private final JwtAuthenticationFilter jwtAuthenticationFilter;
   private final CustomOAuth2UserService customOAuth2UserService;
   private final CustomOIDCUserService customOIDCUserService;
   private final CustomLoginSuccessHandler customLoginSuccessHandler;
@@ -67,7 +67,7 @@ public class SecurityConfig {
         .oidcUserService(customOIDCUserService);
 
     // cors 필터 다음에 JWT 필터를 넣어줌.
-    http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);
+    //http.addFilterAfter(jwtAuthenticationFilter, CorsFilter.class);
 
     return http.build();
 
