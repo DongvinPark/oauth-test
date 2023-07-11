@@ -23,7 +23,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService implements
   public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
     System.out.println("오오스 투 유저 서비스 로드유저 메서드 호출!!");
 
-    OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
+    /*OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
 
     OAuth2User oAuth2User = delegate.loadUser(userRequest);
 
@@ -40,13 +40,14 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService implements
 
     // 유저 엔티티 저장은 여기서 했다고 치자. 그냥 로그인일 수도 있고, 회원가입 및 로그인을 돌 다 진행할 수도 있다.
     // 이건 아마 내부 로직을 if else로 나눠서 구현해야 할 것이다.
-    System.out.println("로그인만 하든지, 회원가입까지 하든지 둘 중 하나는 했다고 치자.");
+    System.out.println("로그인만 하든지, 회원가입까지 하든지 둘 중 하나는 했다고 치자.");*/
 
-    return new DefaultOAuth2User(
+    /*return new DefaultOAuth2User(
         Collections.singleton(new SimpleGrantedAuthority("USER")),
         attributes.getAttributes(),
         attributes.getNameAttributeKey()
-    );
+    );*/
+    return null;
   }
 
 }
