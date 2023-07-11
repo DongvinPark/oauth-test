@@ -1,5 +1,6 @@
 package com.example.oauthtest.oauth;
 
+import com.nimbusds.common.contenttype.ContentType;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,6 +26,14 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 
+    String jsonInputString = "{"
+        + "\n\t\"accessToken\" : \""+ oidcUser.getSubject() + "\"\n}";
+    byte[] input = jsonInputString.getBytes("UTF-8");
+
+    response.setContentType("application/json");
+    response.getOutputStream().write(input, 0, input.length);
+
+    /*
     //url을 이용해서 POST 연결 설정하기
     URL url = new URL("http://localhost:8081/jwt");
     HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -54,6 +63,6 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
     // 시스템 리소스 반납
     os.close();
-    con.disconnect();
+    con.disconnect();*/
   }
 }
