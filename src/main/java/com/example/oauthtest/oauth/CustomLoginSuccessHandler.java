@@ -21,13 +21,16 @@ import org.springframework.stereotype.Component;
 public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
 
   @Override
-  public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-      Authentication authentication) throws IOException, ServletException {
+  public void onAuthenticationSuccess(
+      HttpServletRequest request, HttpServletResponse response, Authentication authentication
+  ) throws IOException, ServletException {
 
     OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
 
-    String jsonInputString = "{"
-        + "\n\t\"accessToken\" : \""+ oidcUser.getSubject() + "\"\n}";
+    String jsonInputString =
+        "{"
+            + "\n\t\"accessToken\" : \"" + oidcUser.getSubject() + "\""
+        + "\n}";
     byte[] input = jsonInputString.getBytes("UTF-8");
 
     response.setContentType("application/json");
