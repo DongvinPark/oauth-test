@@ -30,6 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
   protected void doFilterInternal(
       HttpServletRequest request, HttpServletResponse response, FilterChain filterChain
   ) throws ServletException, IOException {
+    System.out.println("JWT 어텐티케이션 필터 호출!!");
     try {
       String token = parseBearerToken(request);
 
