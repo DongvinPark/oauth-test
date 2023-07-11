@@ -25,20 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class TestOidcController {
 
-  @Value("${spring.security.oauth2.client.registration.google.client-id}")
-  private String CLIENT_ID;
+  private final GoogleIdTokenVerifier googleIdTokenVerifier;
 
   @PostMapping("/test-oidc")
   public void testOidc(
       @RequestParam String tokenValue
   ) throws GeneralSecurityException, IOException {
 
-    GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(new NetHttpTransport(), new GsonFactory())
-        .setAudience(
-            List.of(CLIENT_ID)
-        ).build();
-
-    GoogleIdToken idToken = verifier.verify(tokenValue);
+    GoogleIdToken idToken = googleIdTokenVerifier.verify(tokenValue);
 
     if(idToken != null){
       Payload payload = idToken.getPayload();
