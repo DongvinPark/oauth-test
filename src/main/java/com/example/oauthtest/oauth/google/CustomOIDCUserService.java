@@ -1,4 +1,4 @@
-package com.example.oauthtest.oauth;
+package com.example.oauthtest.oauth.google;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

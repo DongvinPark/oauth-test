@@ -1,4 +1,4 @@
-package com.example.oauthtest.oauth;
+package com.example.oauthtest.oauth.google;
 
 import com.nimbusds.common.contenttype.ContentType;
 import java.io.BufferedReader;

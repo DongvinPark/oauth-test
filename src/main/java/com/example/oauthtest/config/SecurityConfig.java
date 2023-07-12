@@ -1,12 +1,12 @@
 package com.example.oauthtest.config;
 
 //import com.example.oauthtest.jwt.JwtAuthenticationFilter;
-//import com.example.oauthtest.oauth.CustomLoginSuccessHandler;
-//import com.example.oauthtest.oauth.CustomLoginSuccessHandler;
+//import com.example.oauthtest.oauth.google.CustomLoginSuccessHandler;
+//import com.example.oauthtest.oauth.google.CustomLoginSuccessHandler;
 //import com.example.oauthtest.jwt.JwtAuthenticationFilter;
-import com.example.oauthtest.oauth.CustomLoginSuccessHandler;
-import com.example.oauthtest.oauth.CustomOAuth2UserService;
-import com.example.oauthtest.oauth.CustomOIDCUserService;
+import com.example.oauthtest.oauth.google.CustomLoginSuccessHandler;
+import com.example.oauthtest.oauth.google.CustomOAuth2UserService;
+import com.example.oauthtest.oauth.google.CustomOIDCUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -14,11 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.client.oidc.userinfo.OidcUserRequest;
-import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.filter.CorsFilter;
 
 @RequiredArgsConstructor
 @EnableWebSecurity

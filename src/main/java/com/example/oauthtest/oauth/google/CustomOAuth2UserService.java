@@ -1,4 +1,4 @@
-package com.example.oauthtest.oauth;
+package com.example.oauthtest.oauth.google;
 
 import com.example.oauthtest.model.UserRepository;
 import java.util.Collections;
