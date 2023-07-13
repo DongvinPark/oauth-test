@@ -2,26 +2,21 @@ package com.example.oauthtest.oauth.dto;
 
 import java.util.List;
 import java.util.Optional;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class ApplePublicKeyResponse {
-  private List<Key> keys;
+  private List<ApplePublicKey> keys;
 
-  @Getter
-  @Setter
-  public static class Key {
-    private String kty;
-    private String kid;
-    private String use;
-    private String alg;
-    private String n;
-    private String e;
-  }
-
-  public Optional<Key> getMatchedKeyBy(String kid, String alg) {
+  public Optional<ApplePublicKey> getMatchedKeyBy(String kid, String alg) {
+    System.out.println("겟매치드키 메서드 호출!!");
     return this.keys.stream()
         .filter(key -> key.getKid().equals(kid) && key.getAlg().equals(alg))
         .findFirst();
