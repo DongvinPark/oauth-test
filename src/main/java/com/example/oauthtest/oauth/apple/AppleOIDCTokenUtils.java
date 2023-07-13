@@ -80,24 +80,28 @@ public class AppleOIDCTokenUtils {
       //System.out.println("디코드용 공개키 만들기 성공!!");
 
       // 만들어진 공개키가 널일 경우 베이스 예외를 던진다.
-      if(publicKey == null) {
+      if (publicKey == null) {
         throw new RuntimeException("공개키가 널 임!!");
       }
 
       // JWT 내의 클래임을 리턴한다.
-      String payload = Jwts.parser().setSigningKey(publicKey).parseClaimsJws(identityToken).getBody().toString();
+      String payload = Jwts.parser().setSigningKey(publicKey).parseClaimsJws(identityToken)
+          .getBody().toString()
+          .replace(" ", "")
+          .replace("{", "")
+          .replace("}", "");
       //System.out.println("payload = " + payload);
 
       // Gson은 써 봤지만 안 된다. 페이로드 내부에 // 나 링크 같은 특수한 문자들이 있어서
       // Gson이 거기에서 계속 JSON 문법 예외를 만들어내기 때문이다.
       // Gson을 쓰지 않을 경우, 결국 일일이 수동으로 파싱해서 내용물을 가져오는 수밖에 없다..
 
-      String[] payloadArr = payload.split(", ");
+      String[] payloadArr = payload.split(",");
       AppleOAuthLoginPrincipalDto principal = new AppleOAuthLoginPrincipalDto();
 
-      for(String payloadVal : payloadArr){
+      for (String payloadVal : payloadArr) {
         String[] payloadKeyValuePair = payloadVal.split("=");
-        if(payloadKeyValuePair[0].equals("sub")){
+        if (payloadKeyValuePair[0].equals("sub")) {
           principal.setSub(payloadKeyValuePair[1]);
         } else if (payloadKeyValuePair[0].equals("email")) {
           principal.setEmail(payloadKeyValuePair[1]);

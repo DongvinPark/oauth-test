@@ -16,7 +16,6 @@ public class ApplePublicKeyResponse {
   private List<ApplePublicKey> keys;
 
   public Optional<ApplePublicKey> getMatchedKeyBy(String kid, String alg) {
-    System.out.println("겟매치드키 메서드 호출!!");
     return this.keys.stream()
         .filter(key -> key.getKid().equals(kid) && key.getAlg().equals(alg))
         .findFirst();

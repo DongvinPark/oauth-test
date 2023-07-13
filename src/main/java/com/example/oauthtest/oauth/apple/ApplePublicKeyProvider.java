@@ -49,28 +49,9 @@ public class ApplePublicKeyProvider {
 
     for (Object o : stringList) {
       String targetString = o.toString();
-      System.out.println("원본 키리스펀스 스트링 = " + targetString);
+      //System.out.println("원본 키리스펀스 스트링 = " + targetString);
 
       Map<String, String> keyMap = gson.fromJson(targetString, Map.class);
-
-      /*List<String> valueList = new ArrayList<>();
-      for (String s : keyValuePair) {
-        System.out.println("키밸류페어 값 : " + s);
-        String targetValue = s.split("=")[1];
-        if(targetValue.endsWith("}")){
-          targetValue = targetString.substring(0, targetValue.length()-1);
-        }
-        valueList.add(targetValue);
-      }
-
-      ApplePublicKey applePublicKey = new ApplePublicKey();
-
-      applePublicKey.setKty(valueList.get(0));
-      applePublicKey.setKid(valueList.get(1));
-      applePublicKey.setUse(valueList.get(2));
-      applePublicKey.setAlg(valueList.get(3));
-      applePublicKey.setN(valueList.get(4));
-      applePublicKey.setE(valueList.get(5));*/
 
       ApplePublicKey applePublicKey = new ApplePublicKey();
 
@@ -84,7 +65,7 @@ public class ApplePublicKeyProvider {
       applePublicKeyResponse.getKeys().add(applePublicKey);
     }// O for
 
-    System.out.println("만들어진 applePublicKeyResponse 점검!");
+    /*System.out.println("만들어진 applePublicKeyResponse 점검!");
     System.out.println("키 개수 : " + applePublicKeyResponse.getKeys().size());
     for(ApplePublicKey key : applePublicKeyResponse.getKeys()){
       System.out.println("키 출력시작!!");
@@ -94,7 +75,7 @@ public class ApplePublicKeyProvider {
       System.out.println(key.getAlg());
       System.out.println(key.getN());
       System.out.println(key.getE());
-    }
+    }*/
 
     return applePublicKeyResponse;
   }
