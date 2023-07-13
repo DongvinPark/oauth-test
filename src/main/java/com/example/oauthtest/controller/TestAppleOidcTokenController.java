@@ -1,6 +1,7 @@
 package com.example.oauthtest.controller;
 
 import com.example.oauthtest.oauth.apple.AppleOIDCTokenUtils;
+import com.example.oauthtest.oauth.dto.AppleOAuthLoginPrincipalDto;
 import com.example.oauthtest.oauth.dto.ApplePublicKeyResponse;
 import io.jsonwebtoken.Claims;
 import java.io.IOException;
@@ -20,11 +21,10 @@ public class TestAppleOidcTokenController {
   public void testApplePublicKey(
       @RequestParam String appleOidcToken
   ) {
-    Claims claims = appleOIDCTokenUtils.getClaimsBy(appleOidcToken);
+    AppleOAuthLoginPrincipalDto result = appleOIDCTokenUtils.getClaimsBy(appleOidcToken);
 
-    String payload = claims.getSubject();
-
-    System.out.println(payload);
+    System.out.println("애플 유저 섭젝트 : " + result.getSub());
+    System.out.println("애플 유저 이메일 : " + result.getEmail());
   }// func
 
 }

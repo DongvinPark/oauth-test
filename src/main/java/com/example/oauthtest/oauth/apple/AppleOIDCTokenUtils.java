@@ -1,8 +1,10 @@
 package com.example.oauthtest.oauth.apple;
 
+import com.example.oauthtest.oauth.dto.AppleOAuthLoginPrincipalDto;
 import com.example.oauthtest.oauth.dto.ApplePublicKey;
 import com.example.oauthtest.oauth.dto.ApplePublicKeyResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -16,6 +18,7 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +28,7 @@ public class AppleOIDCTokenUtils {
 
   private final ApplePublicKeyProvider applePublicKeyProvider;
 
-  public Claims getClaimsBy(String identityToken) {
+  public AppleOAuthLoginPrincipalDto getClaimsBy(String identityToken) {
 
     try {
       // 애플의 아이디 서버로부터 공개키를 받아온다.
@@ -82,18 +85,38 @@ public class AppleOIDCTokenUtils {
       }
 
       // JWT 내의 클래임을 리턴한다.
-      System.out.println("리턴 성공!!");
-      return Jwts.parser().setSigningKey(publicKey).parseClaimsJws(identityToken).getBody();
+      String payload = Jwts.parser().setSigningKey(publicKey).parseClaimsJws(identityToken).getBody().toString();
+      System.out.println("payload = " + payload);
 
+      // Gson은 써 봤지만 안 된다. 페이로드 내부에 // 나 링크 같은 특수한 문자들이 있어서
+      // Gson이 거기에서 계속 JSON 문법 예외를 만들어내기 때문이다.
+      // Gson을 쓰지 않을 경우, 결국 일일이 수동으로 파싱해서 내용물을 가져오는 수밖에 없다..
+
+      String[] payloadArr = payload.split(", ");
+      AppleOAuthLoginPrincipalDto principal = new AppleOAuthLoginPrincipalDto();
+
+      for(String payloadVal : payloadArr){
+        String[] payloadKeyValuePair = payloadVal.split("=");
+        if(payloadKeyValuePair[0].equals("sub")){
+          principal.setSub(payloadKeyValuePair[1]);
+        } else if (payloadKeyValuePair[0].equals("email")) {
+          principal.setEmail(payloadKeyValuePair[1]);
+        }
+      }
+
+      return principal;
     } catch (SignatureException | MalformedJwtException e) {
       //토큰 서명 검증 or 구조 문제 (Invalid token)
       System.out.println("제이더블유티 구조에 문제!!");
+      e.printStackTrace();
     } catch (ExpiredJwtException expiredJwtException) {
       //토큰이 만료됐기 때문에 클라이언트는 토큰을 refresh 해야함.
       System.out.println("토큰 만료됨 예외!!");
+      expiredJwtException.printStackTrace();
     } catch (Exception exception) {
       //
       System.out.println("그냥 전체 예외!!");
+      exception.printStackTrace();
     }
 
     System.out.println("뭔가 예외 잡힘?!");
